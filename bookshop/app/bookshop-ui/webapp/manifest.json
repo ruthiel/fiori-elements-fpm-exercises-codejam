@@ -122,7 +122,21 @@
           "options": {
             "settings": {
               "editableHeaderContent": false,
-              "contextPath": "/Books"
+              "contextPath": "/Books",
+              "content": {
+                "body": {
+                  "sections": {
+                    "Order": {
+                      "template": "bookshopui.ext.fragment.Order",
+                      "position": {
+                        "placement": "After",
+                        "anchor": "GeneratedFacet1"
+                      },
+                      "title": "Order"
+                    }
+                  }
+                }
+              }
             }
           }
         }
