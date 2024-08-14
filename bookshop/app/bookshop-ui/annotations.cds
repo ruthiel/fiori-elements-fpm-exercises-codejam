@@ -1,13 +1,21 @@
 using CatalogService as service from '../../srv/cat-service';
 
+annotate CatalogService.Books with @odata.draft.enabled;
+
 // general
 annotate service.Books with {
-    title  @title: 'Title';
-    descr  @title: 'Description';
-    author @title: 'Author';
-    genre  @title: 'Genre';
-    price  @title: 'Price';
-    stock  @title: 'Stock';
+    title   @title: 'Title';
+    descr   @title: 'Description';
+    author  @title: 'Author'  @Common: {
+        Text           : author.name,
+        TextArrangement: #TextOnly
+    };
+    genre   @title: 'Genre'   @Common: {
+        Text           : genre.name,
+        TextArrangement: #TextOnly
+    };
+    price   @title: 'Price';
+    stock   @title: 'Stock';
 };
 
 annotate service.Books with @(
@@ -71,11 +79,13 @@ annotate service.Books with @(
             },
             {
                 $Type: 'UI.DataField',
-                Value: author.name,
+                Label: 'Author',
+                Value: author_ID,
             },
             {
                 $Type: 'UI.DataField',
-                Value: genre.name,
+                Label: 'Genre',
+                Value: genre_ID,
             },
             {
                 $Type: 'UI.DataField',
@@ -144,3 +154,26 @@ annotate service.Sales with @(
     }
 
 );
+
+// value help for Authors
+annotate CatalogService.Books with {
+    author
+    @Common.ValueListWithFixedValues: true // dropdown instead of dialog
+    @Common.ValueList               : {
+        $Type         : 'Common.ValueListType',
+        CollectionPath: 'Authors',
+        Parameters    : [{
+            $Type            : 'Common.ValueListParameterInOut',
+            LocalDataProperty: author_ID,
+            ValueListProperty: 'ID',
+        }]
+    }
+};
+
+// value help for Authors: display name instead of ID
+annotate CatalogService.Authors with {
+    ID @Common.Text: {
+        $value                : name,
+        ![@UI.TextArrangement]: #TextOnly,
+    }
+};
