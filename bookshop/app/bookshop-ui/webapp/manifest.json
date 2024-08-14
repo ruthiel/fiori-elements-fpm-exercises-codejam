@@ -133,6 +133,15 @@
                         "anchor": "GeneratedFacet1"
                       },
                       "title": "Order"
+                    },
+                    "SalesData": {
+                      "template": "bookshopui.ext.fragment.SalesData",
+                      "position": {
+                        "placement": "After",
+                        "anchor": "Order"
+                      },
+                      "title": "Sales Data",
+                      "type": "XMLFragment"
                     }
                   }
                 }
