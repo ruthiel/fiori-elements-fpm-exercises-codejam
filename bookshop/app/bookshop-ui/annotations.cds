@@ -177,3 +177,26 @@ annotate CatalogService.Authors with {
         ![@UI.TextArrangement]: #TextOnly,
     }
 };
+
+annotate service.Books with @(
+    UI.DataPoint #stock: {
+        Value      : stock,
+        TargetValue: 100,
+        Criticality: criticality
+    },
+    UI.Chart #stock    : {
+        ChartType        : #Donut,
+        Title            : 'Stock',
+        Measures         : [stock, ],
+        MeasureAttributes: [{
+            DataPoint: '@UI.DataPoint#stock',
+            Role     : #Axis1,
+            Measure  : stock,
+        }, ],
+    },
+    UI.HeaderFacets    : [{
+        $Type : 'UI.ReferenceFacet',
+        ID    : 'stock',
+        Target: '@UI.Chart#stock',
+    }, ]
+);
